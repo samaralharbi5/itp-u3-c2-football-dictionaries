@@ -1,0 +1,70 @@
+SQUADS_DATA = [
+    [
+        "1",                                     # Number
+        "GK",                                    # Position
+        "Juan Botasso",                          # Name
+        "(1908-10-23)23 October 1908 (aged 21)", # Date of Birth
+        "",                                      # Caps
+        "Quilmes",                               # Club
+        "Argentina",                             # Country (Players Country)
+        "Argentina",                             # Club Country
+        "1930"                                   # Year
+    ],
+    [
+        "9",
+        "FW",
+        "Roberto Cherro",
+        "(1907-02-23)23 February 1907 (aged 23)",
+        "",
+        "Boca Juniors",
+        "Argentina",
+        "Argentina",
+        "1930"
+    ]
+    # More Players...
+]
+
+def lists_to_dicts(players_list):
+    players_dicts = []
+    for player in players_list:
+        player_dict = {
+            'number': player[0],
+            'position': player[1],
+            'name': player[2],
+            'date_of_birth': player[3],
+            'caps': player[4],
+            'club': player[5],
+            'country': player[6],
+            'club_country': player[7],
+            'year': player[8]
+        }
+        players_dicts.append(player_dict)
+    return players_dicts
+
+# Convert the list of lists to a list of dictionaries
+SQUADS_DATA = lists_to_dicts(SQUADS_DATA)
+def group_by_position(players_list):
+    position_groups = {}
+    for player in players_list:
+        position = player['position']
+        if position not in position_groups:
+            position_groups[position] = []
+        position_groups[position].append(player)
+    return position_groups
+
+# Group players by position
+position_groups = group_by_position(SQUADS_DATA)
+def group_by_country_and_position(players_list):
+    country_position_groups = {}
+    for player in players_list:
+        country = player['country']
+        position = player['position']
+        if country not in country_position_groups:
+            country_position_groups[country] = {}
+        if position not in country_position_groups[country]:
+            country_position_groups[country][position] = []
+        country_position_groups[country][position].append(player)
+    return country_position_groups
+
+# Group players by country and position
+country_position_groups = group_by_country_and_position(SQUADS_DATA)
